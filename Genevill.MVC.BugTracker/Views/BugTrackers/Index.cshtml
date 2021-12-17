@@ -1,0 +1,89 @@
+﻿@model Genevill.MVC.BugTracker.Models.BugReportViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form asp-controller="BugTrackers" asp-action="Index" method="get">
+    <p>
+        <select asp-for="AssigneeSearch" asp-items="Model.Assignees">
+            <option value="">All</option>
+        </select>
+
+        Summary: <input type="text" name="SearchString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BugReports[0].Summary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BugReports[0].Assignee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BugReports[0].AffectedUser)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BugReports[0].PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BugReports[0].Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BugReports[0].Resolution)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BugReports[0].Created)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BugReports[0].Updated)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.BugReports) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Summary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Assignee)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AffectedUser)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Resolution)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Created)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Updated)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
