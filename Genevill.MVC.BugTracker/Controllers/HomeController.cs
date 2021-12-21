@@ -18,7 +18,12 @@ namespace Genevill.MVC.BugTracker.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Projects()
+        {
+            return View();
+        }
+
+        public IActionResult CodingChallenges()
         {
             return View();
         }

@@ -4,10 +4,8 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="link-light" asp-action="Create">Create New</a>
 </p>
 
 <form asp-controller="BugTrackers" asp-action="Index" method="get">
@@ -21,7 +19,7 @@
     </p>
 </form>
 
-<table class="table">
+<table class="table text-white" >
     <thead>
         <tr>
             <th>
@@ -79,9 +77,9 @@
                 @Html.DisplayFor(modelItem => item.Updated)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a class="link-light" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a class="link-light" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a class="link-light" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }
