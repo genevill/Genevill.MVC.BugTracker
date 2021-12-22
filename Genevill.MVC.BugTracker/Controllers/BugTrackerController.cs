@@ -10,11 +10,11 @@ using Genevill.MVC.BugTracker.Models;
 
 namespace Genevill.MVC.BugTracker.Controllers
 {
-    public class BugTrackersController : Controller
+    public class BugTrackerController : Controller
     {
         private readonly GenevillMVCBugTrackerContext _context;
 
-        public BugTrackersController(GenevillMVCBugTrackerContext context)
+        public BugTrackerController(GenevillMVCBugTrackerContext context)
         {
             _context = context;
         }
