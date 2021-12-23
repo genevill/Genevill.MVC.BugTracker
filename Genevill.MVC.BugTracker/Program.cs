@@ -5,6 +5,14 @@ using Genevill.MVC.BugTracker.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddDbContext<GenevillMVCBlogContext>(options =>
+
+    options.UseSqlServer(builder.Configuration.GetConnectionString("GenevillMVCBlogContext")));
+
+builder.Services.AddDbContext<GenevillMVCFinancialPortalContext>(options =>
+
+    options.UseSqlServer(builder.Configuration.GetConnectionString("GenevillMVCFinancialPortalContext")));
+
 builder.Services.AddDbContext<GenevillMVCBugTrackerContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("GenevillMVCBugTrackerContext")));
 
@@ -37,6 +45,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=AboutMe}/{id?}");
 
 app.Run();

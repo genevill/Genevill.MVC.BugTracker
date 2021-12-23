@@ -13,7 +13,7 @@ namespace Genevill.MVC.BugTracker.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult AboutMe()
         {
             return View();
         }
