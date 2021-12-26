@@ -20,18 +20,56 @@ namespace Genevill.MVC.BugTracker.Controllers
         }
 
         // GET: BugTrackers
-        public async Task<IActionResult> Index(string assigneeSearch, string searchString)
+        public async Task<IActionResult> Index(
+            string sortOrder, 
+            string assigneeSearch, 
+            string searchString,
+            string currentFilter,
+            int? pageNumber)
         {
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["AssigneeSortParm"] = String.IsNullOrEmpty(sortOrder) ? "assignee_desc" : "";
+            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+
             // Use LINQ to get list of genres.
             IQueryable<string> assigneeQuery = from m in _context.BugTracker
                                             orderby m.Assignee
                                             select m.Assignee;
+
             var bugs = from m in _context.BugTracker
                          select m;
 
+            switch (sortOrder)
+            {
+                case "assignee_desc":
+                    bugs = bugs.OrderByDescending(s => s.Assignee);
+                    break;
+                case "Date":
+                    bugs = bugs.OrderBy(s => s.Created);
+                    break;
+                case "date_desc":
+                    bugs = bugs.OrderByDescending(s => s.Created);
+                    break;
+                default:
+                    bugs = bugs.OrderBy(s => s.Assignee);
+                    break;
+            }
+
             if (!string.IsNullOrEmpty(searchString))
             {
-                bugs = bugs.Where(s => s.Summary!.Contains(searchString));
+                bugs = bugs.Where(s => s.Summary.Contains(searchString)
+                    || s.Resolution.Contains(searchString));
             }
 
             if (!string.IsNullOrEmpty(assigneeSearch))
@@ -44,7 +82,7 @@ namespace Genevill.MVC.BugTracker.Controllers
                 Assignees = new SelectList(await assigneeQuery.Distinct().ToListAsync()),
                 BugReports = await bugs.ToListAsync()
             };
-
+            
             return View(bugReportVM);
         }
 
@@ -77,13 +115,22 @@ namespace Genevill.MVC.BugTracker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Summary,Assignee,AffectedUser,Status,Resolution,Created,Updated")] BugReport bugReport)
+        public async Task<IActionResult> Create([Bind("Summary,Assignee,AffectedUser,Status,Resolution,Created,Updated")] BugReport bugReport)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _context.Add(bugReport);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    _context.Add(bugReport);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            catch (DbUpdateException)
+            {
+                ModelState.AddModelError("", "Unable to save changes. " +
+                    "Try again, and if the problem persists " +
+                    "see your system administrator.");
             }
             return View(bugReport);
         }

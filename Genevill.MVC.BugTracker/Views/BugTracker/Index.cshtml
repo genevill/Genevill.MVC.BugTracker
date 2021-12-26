@@ -14,8 +14,9 @@
             <option value="">All</option>
         </select>
 
-        Summary: <input type="text" name="SearchString" />
-        <input type="submit" value="Filter" />
+        Search summary or resolution: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+        <input type="submit" value="Search" />
+        <a asp-action="Index" class="link-light">Back to Full List</a>
     </p>
 </form>
 
@@ -26,7 +27,7 @@
                 @Html.DisplayNameFor(model => model.BugReports[0].Summary)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BugReports[0].Assignee)
+                <a class="link-light" asp-action="Index" asp-route-sortOrder="@ViewData["AssigneeSortParm"]">@Html.DisplayNameFor(model => model.BugReports[0].Assignee)</a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.BugReports[0].AffectedUser)
@@ -41,7 +42,7 @@
                 @Html.DisplayNameFor(model => model.BugReports[0].Resolution)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BugReports[0].Created)
+                <a class="link-light" asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">@Html.DisplayNameFor(model => model.BugReports[0].Created)</a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.BugReports[0].Updated)

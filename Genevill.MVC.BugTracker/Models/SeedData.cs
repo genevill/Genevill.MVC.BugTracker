@@ -26,7 +26,7 @@ namespace Genevill.MVC.BugTracker.Models
                     Assignee = "Me",
                     AffectedUser = "You",
                     PhoneNumber = "1234567890",
-                    Status = "In Progress",
+                    Status = Status.InProgress,
                     Resolution = "Pending",
                     Created = DateTime.Now,
                     Updated = DateTime.Now
@@ -37,7 +37,7 @@ namespace Genevill.MVC.BugTracker.Models
                     Assignee = "Me",
                     AffectedUser = "You",
                     PhoneNumber = "1234567890",
-                    Status = "In Progress",
+                    Status = Status.InProgress,
                     Resolution = "Pending",
                     Created = DateTime.Now,
                     Updated = DateTime.Now

@@ -4,6 +4,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Genevill.MVC.BugTracker.Models
 {
+    public enum Status
+    {
+        Pending,
+        [Display(Name = "In Progress")]
+        InProgress,
+        Resolved,
+        Closed
+    }
     public class BugReport
     {
         public int Id { get; set; }
@@ -21,8 +29,8 @@ namespace Genevill.MVC.BugTracker.Models
         [Display(Name = "Phone Number")]
         public string? PhoneNumber { get; set; }
 
-        [RegularExpression(@"Pending|In\nProgress|Resolved|Closed", ErrorMessage = "Must be Pending, In Progress, Resolved, or Closed")]
-        public string? Status { get; set; }
+        //[RegularExpression(@"[0123]", ErrorMessage = "Please select Pending, In Progress, Resolved, or Closed")]
+        public Status? Status { get; set; }
         
         public string? Resolution { get; set; }
 
@@ -31,5 +39,11 @@ namespace Genevill.MVC.BugTracker.Models
 
         [DataType(DataType.Date)]
         public DateTime Updated { get; set; }
+
+        public BugReport()
+        {
+            Created = DateTime.Now;
+            Updated = DateTime.Now;
+        }
     }
 }
