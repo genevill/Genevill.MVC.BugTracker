@@ -1,88 +1,135 @@
-﻿@model Genevill.MVC.BugTracker.Models.BugReportViewModel
+﻿@model PaginatedList<Genevill.MVC.BugTracker.Models.BugReport>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<p>
-    <a class="link-light" asp-action="Create">Create New</a>
-</p>
-
-<form asp-controller="BugTracker" asp-action="Index" method="get">
+<div class="container-fluid">
     <p>
-        <select asp-for="AssigneeSearch" asp-items="Model.Assignees">
-            <option value="">All</option>
-        </select>
-
-        Search summary or resolution: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
-        <input type="submit" value="Search" />
-        <a asp-action="Index" class="link-light">Back to Full List</a>
+        <a class="link-light" asp-action="Create">Create New</a>
     </p>
-</form>
 
-<table class="table text-light" >
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.BugReports[0].Summary)
-            </th>
-            <th>
-                <a class="link-light" asp-action="Index" asp-route-sortOrder="@ViewData["AssigneeSortParm"]">@Html.DisplayNameFor(model => model.BugReports[0].Assignee)</a>
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BugReports[0].AffectedUser)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BugReports[0].PhoneNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BugReports[0].Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BugReports[0].Resolution)
-            </th>
-            <th>
-                <a class="link-light" asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">@Html.DisplayNameFor(model => model.BugReports[0].Created)</a>
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BugReports[0].Updated)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.BugReports) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Summary)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Assignee)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AffectedUser)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Resolution)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Created)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Updated)
-            </td>
-            <td>
-                <a class="link-light" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a class="link-light" asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a class="link-light" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <form asp-controller="BugTracker" asp-action="Index" method="get">
+        <p>
+            Search summary or resolution: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-light btn-sm align-top" />
+            <a asp-action="Index" class="link-light">Back to Full List</a>
+        </p>
+    </form>
+
+    <table class="table table-dark table-sm">
+        <thead class="thead-light">
+            <tr>
+                <th>
+                    Summary
+                </th>
+                <th>
+                    <a asp-action="Index" class="link-light" asp-route-sortOrder="@ViewData["AssigneeSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Assignee</a>
+                </th>
+                <th>
+                    Affected User
+                </th>
+                <th>
+                    Phone Number
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>
+                    Resolution
+                </th>
+                <th>
+                    <a asp-action="Index" class="link-light" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Created</a>
+                </th>
+                <th>
+                    Updated
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Summary)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Assignee)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AffectedUser)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                @if(item.Status == Status.Resolved)
+                {
+                    <td>
+                        <p class="badge bg-success fs-6">
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </p>
+                    </td>
+                }
+                @if(item.Status == Status.Pending)
+                {
+                    <td>
+                        <p class="badge bg-warning fs-6">
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </p>
+                    </td>
+                }
+                @if(item.Status == Status.Closed)
+                {
+                    <td>
+                        <p class="badge bg-secondary fs-6">
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </p>
+                    </td>
+                }
+                @if(item.Status == Status.InProgress)
+                {
+                    <td>
+                        <p class="badge bg-primary fs-6">
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </p>
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.Resolution)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Created)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Updated)
+                </td>
+                <td>
+                    <a class="link-light" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a class="link-light" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a class="link-light" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+
+    @{
+        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    }
+
+    <a asp-action="Index"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-pageNumber="@(Model.PageIndex - 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="btn btn-light btn-sm @prevDisabled">
+        Previous
+    </a>
+    <a asp-action="Index"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-pageNumber="@(Model.PageIndex + 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="btn btn-light btn-sm @nextDisabled">
+        Next
+    </a>
+</div>

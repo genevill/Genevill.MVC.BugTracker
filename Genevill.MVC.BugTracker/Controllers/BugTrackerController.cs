@@ -21,10 +21,9 @@ namespace Genevill.MVC.BugTracker.Controllers
 
         // GET: BugTrackers
         public async Task<IActionResult> Index(
-            string sortOrder, 
-            string assigneeSearch, 
-            string searchString,
+            string sortOrder,
             string currentFilter,
+            string searchString,
             int? pageNumber)
         {
             ViewData["CurrentSort"] = sortOrder;
@@ -42,13 +41,14 @@ namespace Genevill.MVC.BugTracker.Controllers
 
             ViewData["CurrentFilter"] = searchString;
 
-            // Use LINQ to get list of genres.
-            IQueryable<string> assigneeQuery = from m in _context.BugTracker
-                                            orderby m.Assignee
-                                            select m.Assignee;
-
             var bugs = from m in _context.BugTracker
                          select m;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                bugs = bugs.Where(s => s.Summary.Contains(searchString)
+                    || s.Resolution.Contains(searchString));
+            }
 
             switch (sortOrder)
             {
@@ -66,24 +66,8 @@ namespace Genevill.MVC.BugTracker.Controllers
                     break;
             }
 
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                bugs = bugs.Where(s => s.Summary.Contains(searchString)
-                    || s.Resolution.Contains(searchString));
-            }
-
-            if (!string.IsNullOrEmpty(assigneeSearch))
-            {
-                bugs = bugs.Where(x => x.Assignee == assigneeSearch);
-            }
-
-            var bugReportVM = new BugReportViewModel
-            {
-                Assignees = new SelectList(await assigneeQuery.Distinct().ToListAsync()),
-                BugReports = await bugs.ToListAsync()
-            };
-            
-            return View(bugReportVM);
+            int pageSize = 6;
+            return View(await PaginatedList<BugReport>.CreateAsync(bugs.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: BugTrackers/Details/5
