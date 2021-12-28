@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<div class="container-fluid">
+<div class="container-fluid mt-5">
     <p>
         <a class="link-light" asp-action="Create">Create New</a>
     </p>
@@ -17,7 +17,7 @@
         </p>
     </form>
 
-    <table class="table table-dark table-sm">
+    <table class="table table-dark table-striped table-hover table-sm">
         <thead class="thead-light">
             <tr>
                 <th>
@@ -65,7 +65,7 @@
                 @if(item.Status == Status.Resolved)
                 {
                     <td>
-                        <p class="badge bg-success fs-6">
+                        <p class="badge rounded-pill bg-success fs-6">
                             @Html.DisplayFor(modelItem => item.Status)
                         </p>
                     </td>
@@ -73,7 +73,7 @@
                 @if(item.Status == Status.Pending)
                 {
                     <td>
-                        <p class="badge bg-warning fs-6">
+                        <p class="badge rounded-pill bg-warning fs-6">
                             @Html.DisplayFor(modelItem => item.Status)
                         </p>
                     </td>
@@ -81,7 +81,7 @@
                 @if(item.Status == Status.Closed)
                 {
                     <td>
-                        <p class="badge bg-secondary fs-6">
+                        <p class="badge rounded-pill bg-secondary fs-6">
                             @Html.DisplayFor(modelItem => item.Status)
                         </p>
                     </td>
@@ -89,7 +89,7 @@
                 @if(item.Status == Status.InProgress)
                 {
                     <td>
-                        <p class="badge bg-primary fs-6">
+                        <p class="badge rounded-pill bg-primary fs-6">
                             @Html.DisplayFor(modelItem => item.Status)
                         </p>
                     </td>
