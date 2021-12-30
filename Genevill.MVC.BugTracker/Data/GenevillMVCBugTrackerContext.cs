@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Genevill.MVC.BugTracker.Models;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Genevill.MVC.BugTracker.Data
 {
     public class GenevillMVCBugTrackerContext : DbContext
     {
-        public GenevillMVCBugTrackerContext (DbContextOptions<GenevillMVCBugTrackerContext> options)
+        public GenevillMVCBugTrackerContext(DbContextOptions<GenevillMVCBugTrackerContext> options)
             : base(options)
         {
         }

@@ -1,7 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Genevill.MVC.BugTracker.Data;
+﻿using Genevill.MVC.BugTracker.Data;
 using Genevill.MVC.BugTracker.Models;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 

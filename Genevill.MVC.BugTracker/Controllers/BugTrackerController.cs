@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Genevill.MVC.BugTracker.Data;
+﻿using Genevill.MVC.BugTracker.Data;
 using Genevill.MVC.BugTracker.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Genevill.MVC.BugTracker.Controllers
 {
@@ -42,7 +37,7 @@ namespace Genevill.MVC.BugTracker.Controllers
             ViewData["CurrentFilter"] = searchString;
 
             var bugs = from m in _context.BugTracker
-                         select m;
+                       select m;
 
             if (!string.IsNullOrEmpty(searchString))
             {

@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/aspnet:6.0
-COPY bin/Release/net6.0/publish/ App/
-WORKDIR /App
-ENTRYPOINT ["dotnet", "DotNet.Docker.dll"]
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime
+WORKDIR /app
+COPY published/Genevill.MVC.BugTracker.dll ./
+ENTRYPOINT ["dotnet", "Genevill.MVC.BugTracker.dll"]

@@ -1,8 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Genevill.MVC.BugTracker.Data;
-using System;
-using System.Linq;
+﻿using Genevill.MVC.BugTracker.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Genevill.MVC.BugTracker.Models
 {

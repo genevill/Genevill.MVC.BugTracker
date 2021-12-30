@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Genevill.MVC.BugTracker.Models
 {
@@ -19,9 +17,9 @@ namespace Genevill.MVC.BugTracker.Models
 #nullable enable
         [StringLength(1000, MinimumLength = 3), Required]
         public string? Summary { get; set; }
-        
+
         public string? Assignee { get; set; }
-        
+
         [Display(Name = "Affected User")]
         public string? AffectedUser { get; set; }
 
@@ -31,7 +29,7 @@ namespace Genevill.MVC.BugTracker.Models
 
         //[RegularExpression(@"[0123]", ErrorMessage = "Please select Pending, In Progress, Resolved, or Closed")]
         public Status? Status { get; set; }
-        
+
         public string? Resolution { get; set; }
 
         [DataType(DataType.Date)]
