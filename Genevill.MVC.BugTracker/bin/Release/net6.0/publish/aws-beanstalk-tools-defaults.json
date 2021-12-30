@@ -1,0 +1,20 @@
+
+{
+    "region" : "us-west-2",
+    "configuration" : "Debug",
+    "framework"     : "net6.0",
+    "self-contained" : true,
+    "application"    : "GenevillMVCBugTracker",
+    "environment"    : "GenevillMVCPortfolio",
+    "enable-xray"    : false,
+    "enhanced-health-type" : "basic",
+    "additional-options"   : "\"aws:autoscaling:launchconfiguration,SecurityGroups\"=\"sg-0c8137c12847c81ba\";\"aws:ec2:vpc,Subnets\"=\"subnet-01c4a36b428ddd6e7\"",
+    "solution-stack"       : "64bit Amazon Linux 2 v2.2.9 running .NET Core",
+    "environment-type"     : "SingleInstance",
+    "cname"                : "genevillmvcportfolio",
+    "instance-type"        : "t2.micro",
+    "key-pair"             : "geneportfolio",
+    "instance-profile"     : "aws-elasticbeanstalk-ec2-role",
+    "service-role"         : "aws-elasticbeanstalk-service-role",
+    "proxy-server"         : "nginx"
+}
