@@ -1,16 +1,3 @@
 {
-  "dependencies": {
-    "mssql1": {
-      "type": "mssql.local",
-      "connectionId": "ConnectionStrings:GenevillMVCBugTrackerContext"
-    },
-    "mssql2": {
-      "type": "mssql.local",
-      "connectionId": "ConnectionStrings:GenevillMVCFinancialPortalContext"
-    },
-    "mssql3": {
-      "type": "mssql.local",
-      "connectionId": "ConnectionStrings:GenevillMVCBlogContext"
-    }
-  }
+  "dependencies": {}
 }
